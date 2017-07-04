@@ -1,0 +1,31 @@
+// ------------------------------------
+// Sass Styles
+// ------------------------------------
+.mdeditor-views-preview {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-left: 1px solid #ccc;
+  overflow: auto;
+  transition: left .3s,width .3s;
+
+  &.expand {
+    left: 0;
+    width: 100%;
+    border-left-style: none;
+  }
+
+  &.shrink {
+    left: 100%;
+    width: 0;
+  }
+
+  &>div {
+    margin: auto;
+    max-width: 860px;
+  }
+}

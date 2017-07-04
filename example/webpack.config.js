@@ -6,15 +6,17 @@ const path = require('path')
 const cssnano = require('cssnano')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const _ = require('lodash')
 
 const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 const scssLoader = [
   {
     loader: 'css-loader?minimize',
     options: {
-      sourcemap: true,
-      modules: true
+      sourcemap: true
     }
   },
   {
@@ -43,21 +45,34 @@ const scssLoader = [
     }
   }
 ]
+isDev && scssLoader.splice(0, 0, 'style-loader')
 
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    index: './index.js'
+    index: './index.js',
+    vender: [
+      'react-hot-loader/patch',
+      'babel-polyfill',
+      'react',
+      'react-dom',
+      //'highlight.js/styles/default.css'
+    ]
   },
   output: {
     path: __dirname + '/dist',
-    filename: '[name].[chunkhash].bundle.js',
+    filename: '[name].[hash].bundle.js',
     publicPath: ''
   },
   plugins: _.compact([
     isProd && new ExtractTextPlugin({
-      filename: '[name].[chunkhash].css',
+      filename: '[name].[hash].css',
       allChunks: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      }
     }),
     isProd && new webpack.optimize.UglifyJsPlugin({
       compress : {
@@ -78,7 +93,15 @@ module.exports = {
       minify   : {
         collapseWhitespace : false
       }
-    })
+    }),
+    isDev && new webpack.HotModuleReplacementPlugin(),
+    new LodashModuleReplacementPlugin({
+      'shorthands'  : true,
+      'collections' : true,
+    }),
+    new CopyWebpackPlugin([
+      //{ from: __dirname + '/src/help.md', to: 'help.md' }
+    ])
   ]),
   module: {
     rules: [
@@ -89,7 +112,17 @@ module.exports = {
           options: { 
             presets: ['es2015', 'react', 'stage-0'] ,
             plugins: [
-              'transform-decorators-legacy'
+              'react-hot-loader/babel',
+              'transform-decorators-legacy',
+              //'transform-object-assign',
+              'lodash', 
+              ['import', [
+                { 
+                  'libraryName': 'antd', 
+                  'libraryDirectory': 'lib',
+                  'style': 'css' 
+                }
+              ]]
             ]
           }
         }],
@@ -151,4 +184,10 @@ module.exports = {
       }
     ],
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    hot: true,
+    port: 9000
+  }
 }

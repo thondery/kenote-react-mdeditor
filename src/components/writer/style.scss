@@ -1,0 +1,25 @@
+// ------------------------------------
+// Sass Styles
+// ------------------------------------
+.mdeditor-views-writer {
+  height: inherit;
+  width: 50%;
+  transition: all .3s;
+
+  &.expand {
+    width: 100%;
+  }
+
+  >textarea {
+    width: 100%;
+    height: inherit;
+    overflow-y: auto;
+    padding: 20px 15px;
+    font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+    font-size: 16px;
+    color: #5e689c;
+    border: 0;
+    outline: 0;
+    resize: none;
+  }
+}

@@ -1,0 +1,29 @@
+
+
+.mdeditor-wrapper {
+  margin: auto;
+  border-style: solid;
+  border-color: #ccc;
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+  background: #fff;
+
+  .mdeditor-views {
+    position: relative;
+    height: inherit;
+    overflow: hidden;
+  }
+
+  &.fullscreen {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: 1;
+    height: 100%;
+  }
+}
+

@@ -1,0 +1,66 @@
+// ------------------------------------
+// Sass Styles
+// ------------------------------------
+.mdeditor-toolbar {
+  background: #fff;
+  flex: 0 0 42px;
+  border-bottom: 1px #ccc solid;
+  display: flex;
+  flex-direction: row;
+  padding: 0 4px;
+
+  ul {
+    height: inherit;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    display: flex;
+    align-items: center;
+
+    li {
+      list-style-type: none;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 2px;
+
+      &:hover,
+      &.active {
+        background: #eee;
+        text-shadow: -1px 0 0 rgba(255, 255, 255, 0.44);
+        border-left: 1px #ccc solid;
+        border-top: 1px #ccc solid;
+        border-right: 1px #ddd solid;
+        border-bottom: 1px #ddd solid;
+        border-radius: 3px;
+      }
+
+      .fa-lg {
+        font-size: 1.3em;
+        color: #999;
+      }
+
+      &[disabled] {
+        &:hover {
+          background: inherit;
+          border: 0;
+        }
+        .fa-lg {
+          color: #d0d0d0;
+        }
+      }
+    }
+  }
+
+  .mdeditor-toolbar-topbar {
+    flex: 1;
+    flex-direction: row;
+  }
+
+  .mdeditor-toolbar-modbar {
+    flex: 0 0 200px;
+    flex-direction: row-reverse;
+  }
+}

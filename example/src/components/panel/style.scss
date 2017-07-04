@@ -1,0 +1,16 @@
+// ------------------------------------
+// Sass Styles
+// ------------------------------------
+
+
+.app-panel {
+  background: #eee;
+  min-height: 120px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+
+  .ant-form-item-label {
+    text-align: left;
+  }
+}
